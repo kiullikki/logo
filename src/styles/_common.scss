@@ -1,0 +1,32 @@
+@import "variables";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.index-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $bg-cl;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
