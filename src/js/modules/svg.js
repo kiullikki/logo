@@ -1,5 +1,5 @@
 'use strict';
-import { DATA_PATCH } from "./dataForSvg/dataPath";
+import { DATA_PATCH, DATA__STYLE } from "./dataForSvg/dataLogo";
 
 export class Svg {
   constructor(svgData) {
@@ -10,6 +10,7 @@ export class Svg {
 
   render(elem) {
     this.svgNode.appendChild(elem);
+    this.svgNode.appendChild(this.getDefs());
   }
 
   getCircle(data) {
@@ -29,8 +30,8 @@ export class Svg {
     const myG = document.createElementNS(this.svgNS,'g');
     const logo = this.pathes.logo;
     myG.setAttributeNS(null,'id', 'logo-paths');
-    myG.appendChild(this.getPath(logo.bottomLayer, 'green'));
-    myG.appendChild(this.getPath(logo.topLayer, 'yellow'));
+    myG.appendChild(this.getPath(logo.bottomLayer, 'fil0'));
+    myG.appendChild(this.getPath(logo.topLayer, 'fil1'));
     return myG;
   }
 
@@ -45,9 +46,9 @@ export class Svg {
     return myG;
   }
 
-  getPath(path, color) {
+  getPath(path, className) {
     const myPath = document.createElementNS(this.svgNS, 'path');
-    myPath.setAttributeNS(null, 'fill', color);
+    myPath.setAttributeNS(null, 'class', className);
     myPath.setAttributeNS(null,'d', path); // set path 
     return myPath
   }
@@ -57,5 +58,29 @@ export class Svg {
     myPoligon.setAttributeNS(null, 'fill', color);
     myPoligon.setAttributeNS(null,'points', path);
     return myPoligon
+  }
+
+  getDefs() {
+    const myDefs = document.createElementNS(this.svgNS, 'defs');
+    myDefs.appendChild(this.getStyle(DATA__STYLE));
+    return myDefs
+  }
+
+  getStyle(data) {
+    const myStyle = document.createElementNS(this.svgNS, 'style');
+    const myData = this.getData(data);
+    myStyle.setAttributeNS(null, 'type', "text/css");
+    myStyle.textContent = '<![CDATA[' + myData + ']]>';
+    return myStyle
+  }
+
+  getData(data) {
+    let str = '';
+    for (var key in data) {
+      if (typeof data[key] !== "undefined") {
+        let str = str + '.' + key + data[key];
+      }
+    }
+    return str
   }
 }

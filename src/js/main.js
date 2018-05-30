@@ -1,5 +1,5 @@
 import { Svg } from "./modules/svg";
-import { DATA_PATCH } from "./modules/dataForSvg/dataPath";
+import { DATA_PATCH } from "./modules/dataForSvg/dataLogo";
 
 
 const svgNode = document.getElementById('logo-svg');
