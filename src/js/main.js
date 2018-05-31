@@ -8,8 +8,16 @@ const svgData={
 };
 
 let svgItem = new Svg(svgData);
+let defs = svgItem.getDefs();
 let gLogo = svgItem.getGroupLogo();
 let gElements = svgItem.getGroupElements();
 
+
+svgItem.render(defs);
 svgItem.render(gLogo);
-svgItem.render(gElements);
+// svgItem.render(gElements);
+
+//animation colors
+
+const gradientNode = svgNode.getElementById('gradient-bottom');
+console.log(gradientNode);
