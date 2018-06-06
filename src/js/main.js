@@ -1,6 +1,6 @@
 import { Svg } from "./modules/svg";
-import { DATA_PATCH } from "./modules/dataForSvg/dataLogo";
-
+import { DATA_COLORS, ID_FILL_MAP } from "./modules/dataForSvg/dataLogo";
+import { AnimationColors } from "./modules/animation-fn";
 
 const svgNode = document.getElementById('logo-svg');
 const svgData={
@@ -8,16 +8,13 @@ const svgData={
 };
 
 let svgItem = new Svg(svgData);
-let defs = svgItem.getDefs();
 let gLogo = svgItem.getGroupLogo();
-let gElements = svgItem.getGroupElements();
-
-
-svgItem.render(defs);
+let gElem = svgItem.getGroupElements();
 svgItem.render(gLogo);
-// svgItem.render(gElements);
+svgItem.render(gElem);
 
 //animation colors
 
-const gradientNode = svgNode.getElementById('gradient-bottom');
-console.log(gradientNode);
+
+const animationLogo = new AnimationColors(svgNode);
+animationLogo.init();

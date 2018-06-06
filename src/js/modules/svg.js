@@ -1,11 +1,12 @@
 'use strict';
-import { DATA_PATCH, DATA_STYLE, DATA_GRADIENT } from "./dataForSvg/dataLogo";
+import { DATA_PATHS, DATA_STYLE, DATA_GRADIENT, ID_FILL_MAP } from "./dataForSvg/dataLogo";
 
 export class Svg {
   constructor(svgData) {
     this.svgNode = svgData.node;
     this.svgNS = 'http://www.w3.org/2000/svg';
-    this.pathes = DATA_PATCH;
+    this.pathes = DATA_PATHS;
+    this.fillForElements = 'rgba(0, 0, 0, 0.2)';
   }
 
   render(elem) {
@@ -14,41 +15,43 @@ export class Svg {
 
   getGroupLogo() {
     const myG = document.createElementNS(this.svgNS,'g');
-    const logo = this.pathes.logo;
+    const pathNames = Object.getOwnPropertyNames(this.pathes.logo);
     myG.setAttributeNS(null,'id', 'logo-paths');
-    myG.appendChild(this.getPath(logo.bottomLayer, 'logo-paths__bottom', 'url(#gradient-bottom)'));
-    myG.appendChild(this.getPath(logo.topLayer, 'logo-paths__top', 'url(#gradient-top)'));
+    pathNames.forEach((name) => {
+      myG.appendChild(this.getPath(this.pathes.logo[name], name));
+    });
     return myG;
   }
 
   getGroupElements() {
     const myG = document.createElementNS(this.svgNS,'g');
-    const elements = this.pathes.elements;
+    const pathNames = Object.getOwnPropertyNames(this.pathes.elements);
     myG.setAttributeNS(null,'id', 'logo-elements');
-    myG.appendChild(this.getPath(elements.path_1, 'red'));
-    myG.appendChild(this.getPath(elements.path_2, 'red'));
+    pathNames.forEach((name) => {
+      myG.appendChild(this.getPath(this.pathes.elements[name], name, this.fillForElements));
+    });
     return myG;
   }
 
-  getPath(path, className, fill) {
-    const myPath = document.createElementNS(this.svgNS, 'path');
+  getPath(path, idPath, fill) {
+    const myPath = document.createElementNS(this.svgNS, 'path'),
+          url = 'url(#' + ID_FILL_MAP[idPath] + ')',
+          className = 'svg-logo__path-' + idPath;
+
+    let fillValue = fill || url;
+          
     myPath.setAttributeNS(null, 'class', className);
-    myPath.setAttributeNS(null, 'fill', fill);
+    myPath.setAttributeNS(null, 'fill', fillValue);
     myPath.setAttributeNS(null,'d', path); // set path 
     return myPath
   }
 
-  // getPolygon(path, color) {
-  //   const myPoligon = document.createElementNS(this.svgNS, 'polygon');
-  //   myPoligon.setAttributeNS(null, 'fill', color);
-  //   myPoligon.setAttributeNS(null,'points', path);
-  //   return myPoligon
-  // }
 
   getDefs() {
     const myDefs = document.createElementNS(this.svgNS, 'defs');
-    myDefs.appendChild(this.getGradient(DATA_GRADIENT.bottom));
-    myDefs.appendChild(this.getGradient(DATA_GRADIENT.top));
+    DATA_GRADIENT.forEach((item) => {
+      myDefs.appendChild(this.getGradient(item));
+    });
     return myDefs
   }
 
@@ -78,22 +81,4 @@ export class Svg {
     stop.setAttributeNS(null, 'id', myId);
     return stop;
   }
-
-  // getStyle(data) {
-  //   const myStyle = document.createElementNS(this.svgNS, 'style');
-  //   const myData = this.getData(data);
-  //   myStyle.setAttributeNS(null, 'type', "text/css");
-  //   // myStyle.innerHTML = '<[CDATA[' + myData + ']]>';
-  //   return myStyle
-  // }
-
-  // getData(data) {
-  //   let value = '';
-  //   for (var key in data) {
-  //     if (typeof data[key] !== "undefined") {
-  //       value = value + ' .' + key + ' ' + data[key];
-  //     }
-  //   }
-  //   return value
-  // }
 }
