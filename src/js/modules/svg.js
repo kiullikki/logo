@@ -24,9 +24,15 @@ export class Svg {
   }
 
   getGroupElements() {
+    const fillOtherElem = "url(#id0)";
+    const pathOtherElem = this.pathes.elements['1'];
+  
     const myG = document.createElementNS(this.svgNS,'g');
     const pathNames = Object.getOwnPropertyNames(this.pathes.elements);
     myG.setAttributeNS(null,'id', 'logo-elements');
+  
+    myG.appendChild(this.getPath(pathOtherElem, '1', fillOtherElem));
+  
     pathNames.forEach((name) => {
       myG.appendChild(this.getPath(this.pathes.elements[name], name, this.fillForElements));
     });

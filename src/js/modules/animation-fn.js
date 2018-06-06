@@ -63,10 +63,10 @@ export class AnimationColors {
 
   getColorList() {
     let lastColor = this.getColorValue(this.colorPoints.orange.r, this.colorPoints.orange.g, this.colorPoints.orange.b);
-    let colorsValue_1 = this.getColors(this.colorPoints.orange, this.colorPoints.lime, 23);
-    let colorsValue_2 = this.getColors(this.colorPoints.lime, this.colorPoints.green, 24);
-    let colorsValue_3 = this.getColors(this.colorPoints.green, this.colorPoints.lime, 24);
-    let colorsValue_4 = this.getColors(this.colorPoints.lime, this.colorPoints.orange, 23);
+    let colorsValue_1 = this.getColors(this.colorPoints.orange, this.colorPoints.lime, 22);
+    let colorsValue_2 = this.getColors(this.colorPoints.lime, this.colorPoints.green, 23);
+    let colorsValue_3 = this.getColors(this.colorPoints.green, this.colorPoints.lime, 23);
+    let colorsValue_4 = this.getColors(this.colorPoints.lime, this.colorPoints.orange, 22);
     this.colors = this.colors.concat(colorsValue_1, colorsValue_2, colorsValue_3, colorsValue_4);
     this.colors.push(lastColor);
     this.colorsLength = this.colors.length - 1;
