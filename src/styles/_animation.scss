@@ -1,126 +1,40 @@
-#gradient-bottom_stop_0,
-#gradient-bottom_stop_1,
-#gradient-bottom_stop_2,
-#gradient-bottom_stop_3,
-#gradient-bottom_stop_4 {
-  animation-duration: $animation-duration;
-  animation-iteration-count: $animation-iteration;
-}
+#logo-elements {
+  & path {
+    animation-name: color-reverse;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
 
-#gradient-bottom_stop_0 {
-  stop-color: $stop-cl-1;
-  animation-name: color-1;
-}
-
-#gradient-bottom_stop_1 {
-  stop-color: $stop-cl-2;
-  animation-name: color-2;
-}
-
-#gradient-bottom_stop_2 {
-  stop-color: $stop-cl-3;
-  animation-name: color-3;
-}
-
-#gradient-bottom_stop_3 {
-  stop-color: $stop-cl-1;
-  animation-name: color-1;
-}
-
-#gradient-bottom_stop_4 {
-  stop-color: $stop-cl-2;
-  animation-name: color-2;
-}
-
-
-// top layers of logo
-
-#gradient-top_stop_0,
-#gradient-top_stop_1,
-#gradient-top_stop_2 {
-  animation-duration: $animation-duration;
-  animation-iteration-count: $animation-iteration;
-}
-
-#gradient-top_stop_0 {
-  stop-color: $stop-cl-2;
-  animation-name: color-1;
-}
-
-#gradient-top_stop_1 {
-  stop-color: $stop-cl-3;
-  animation-name: color-2;
-}
-
-#gradient-top_stop_2 {
-  stop-color: $stop-cl-2;
-  animation-name: color-3;
-}
-
-@keyframes color-1 {
-  0% {
-    stop-color: $stop-cl-1;
+    &:first-child {
+      animation-name: color-change;
+    }
   }
+}
 
-  25% {
-    stop-color: $stop-cl-2;
+
+@keyframes color-change {
+  0% {
+    fill: rgb(199, 166, 18);
   }
 
   50% {
-    stop-color: $stop-cl-3;
-  }
-
-  75% {
-    stop-color: $stop-cl-2;
+    fill: rgb(136, 189, 11);
   }
 
   100% {
-    stop-color: $stop-cl-1;
+    fill: rgb(199, 166, 18);
   }
 }
 
-@keyframes color-2 {
+@keyframes color-reverse {
   0% {
-    stop-color: $stop-cl-2;
-  }
-
-  25% {
-    stop-color: $stop-cl-2;
+    fill: rgb(136, 189, 11);
   }
 
   50% {
-    stop-color: $stop-cl-2;
-  }
-
-  75% {
-    stop-color: $stop-cl-1;
+    fill: rgb(199, 166, 18);
   }
 
   100% {
-    stop-color: $stop-cl-2;
+    fill: rgb(136, 189, 11);
   }
 }
-
-@keyframes color-3 {
-  0% {
-    stop-color: $stop-cl-3;
-  }
-
-  25% {
-    stop-color: $stop-cl-2;
-  }
-
-  50% {
-    stop-color: $stop-cl-1;
-  }
-
-  75% {
-    stop-color: $stop-cl-2;
-  }
-
-  100% {
-    stop-color: $stop-cl-3;
-  }
-}
-
-

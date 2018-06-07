@@ -6,7 +6,10 @@ export class Svg {
     this.svgNode = svgData.node;
     this.svgNS = 'http://www.w3.org/2000/svg';
     this.pathes = DATA_PATHS;
-    this.fillForElements = 'rgba(0, 0, 0, 0.2)';
+    this.fillForElements = {
+      0: 'rgb(199, 166, 18)',
+      1: 'rgb(136, 189, 11)'
+    };
   }
 
   render(elem) {
@@ -24,17 +27,17 @@ export class Svg {
   }
 
   getGroupElements() {
-    const fillOtherElem = "url(#id0)";
-    const pathOtherElem = this.pathes.elements['1'];
+    // const fillOtherElem = "url(#id0)";
+    // const pathOtherElem = this.pathes.elements['1'];
   
     const myG = document.createElementNS(this.svgNS,'g');
     const pathNames = Object.getOwnPropertyNames(this.pathes.elements);
     myG.setAttributeNS(null,'id', 'logo-elements');
   
-    myG.appendChild(this.getPath(pathOtherElem, '1', fillOtherElem));
+    // myG.appendChild(this.getPath(pathOtherElem, '1', fillOtherElem));
   
     pathNames.forEach((name) => {
-      myG.appendChild(this.getPath(this.pathes.elements[name], name, this.fillForElements));
+      myG.appendChild(this.getPath(this.pathes.elements[name], name, this.fillForElements[name]));
     });
     return myG;
   }
