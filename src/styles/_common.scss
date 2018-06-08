@@ -30,3 +30,11 @@ body {
   height: 1px;
   margin: -1px;
 }
+
+.logo {
+  width: 100%;
+
+  &__svg {
+    width: 100%;
+  }
+}

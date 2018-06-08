@@ -9,15 +9,30 @@ export class AnimationColors {
     this.colorPoints = DATA_COLOR_POINTS;
     this.colorsLength = null;
     this.iterationNumber = 0;
-    this.timeAnimation = 50;
+    this.timeAnimation = 30;
+    this.quantityColorsOrangeInLime = 22;
+    this.quantityColorsLimeInGreen = 23;
+    this.timerId = null;
   }
 
   init() {
     let gradientSortList = this.sortedGradientList(this.node, ID_FILL_MAP);
     this.gradientStopList = this.getGradientStopList(gradientSortList);
     this.getColorList();
+  }
 
-    setInterval( this.animationIteration.bind(this), this.timeAnimation);
+  run() {
+    this.timerId = (this.timerId===null)
+                      ? setInterval( this.animationIteration.bind(this), this.timeAnimation)
+                      : this.timerId;
+    this.node.classList.add('animation-elements');
+  }
+
+  stop() {
+    clearInterval(this.timerId);
+    this.timerId = null;
+    this.iterationNumber = 0;
+    this.node.classList.remove('animation-elements');
   }
 
   sortedGradientList(node, mapIdFill) {
@@ -63,10 +78,10 @@ export class AnimationColors {
 
   getColorList() {
     let lastColor = this.getColorValue(this.colorPoints.orange.r, this.colorPoints.orange.g, this.colorPoints.orange.b);
-    let colorsValue_1 = this.getColors(this.colorPoints.orange, this.colorPoints.lime, 22);
-    let colorsValue_2 = this.getColors(this.colorPoints.lime, this.colorPoints.green, 23);
-    let colorsValue_3 = this.getColors(this.colorPoints.green, this.colorPoints.lime, 23);
-    let colorsValue_4 = this.getColors(this.colorPoints.lime, this.colorPoints.orange, 22);
+    let colorsValue_1 = this.getColors(this.colorPoints.orange, this.colorPoints.lime, this.quantityColorsOrangeInLime);
+    let colorsValue_2 = this.getColors(this.colorPoints.lime, this.colorPoints.green, this.quantityColorsLimeInGreen);
+    let colorsValue_3 = this.getColors(this.colorPoints.green, this.colorPoints.lime, this.quantityColorsLimeInGreen);
+    let colorsValue_4 = this.getColors(this.colorPoints.lime, this.colorPoints.orange, this.quantityColorsOrangeInLime);
     this.colors = this.colors.concat(colorsValue_1, colorsValue_2, colorsValue_3, colorsValue_4);
     this.colors.push(lastColor);
     this.colorsLength = this.colors.length - 1;
@@ -87,13 +102,12 @@ export class AnimationColors {
     };
     return colors;
   }
-
   animationIteration() {
     this.gradientStopList = this.nodeChangeColors(this.gradientStopList, this.iterationNumber, this.colors);
-    this.iterationNumber = (this.iterationNumber + 1) % this.colorsLength;
-  }
-
-  DeepCopy(obj){
-    return JSON.parse(JSON.stringify(obj));
+    // this.iterationNumber = (this.iterationNumber + 1) % this.colorsLength;
+    this.iterationNumber++;
+    if (this.iterationNumber === this.colorsLength) {
+      this.stop();
+    }
   }
 }

@@ -1,11 +1,13 @@
-#logo-elements {
-  & path {
-    animation-name: color-reverse;
-    animation-duration: 4000ms;
-    animation-iteration-count: infinite;
+.animation-elements {
+  #logo-elements {
+    & path {
+      animation-name: color-reverse;
+      animation-duration: 3000ms;
+      animation-iteration-count: 1;
 
-    &:first-child {
-      animation-name: color-change;
+      &:first-child {
+        animation-name: color-change;
+      }
     }
   }
 }

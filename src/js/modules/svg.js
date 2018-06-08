@@ -12,8 +12,13 @@ export class Svg {
     };
   }
 
-  render(elem) {
-    this.svgNode.appendChild(elem);
+  render() {
+    let fragment = document.createDocumentFragment();
+    let gLogo = this.getGroupLogo();
+    let gElem = this.getGroupElements();
+    fragment.appendChild(gLogo);
+    fragment.appendChild(gElem);
+    this.svgNode.appendChild(fragment);
   }
 
   getGroupLogo() {

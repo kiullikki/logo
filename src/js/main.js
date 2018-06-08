@@ -8,13 +8,14 @@ const svgData={
 };
 
 let svgItem = new Svg(svgData);
-let gLogo = svgItem.getGroupLogo();
-let gElem = svgItem.getGroupElements();
-svgItem.render(gLogo);
-svgItem.render(gElem);
+svgItem.render();
 
 //animation colors
-
-
 const animationLogo = new AnimationColors(svgNode);
 animationLogo.init();
+
+function mouseoverHandler() {
+  animationLogo.run();
+}
+
+svgNode.addEventListener('mouseenter', mouseoverHandler);
